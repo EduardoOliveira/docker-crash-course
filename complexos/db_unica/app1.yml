@@ -1,0 +1,27 @@
+services:
+    wordpress1:
+        depends_on:
+            - db
+        image: wordpress:latest
+        networks:
+            - proxy
+            - database
+        #volumes: 
+            #- ./wp_content:/var/www/html/wp-content/
+        restart: always
+        environment:
+            WORDPRESS_DB_HOST: db:3306
+            WORDPRESS_DB_USER: wordpress
+            WORDPRESS_DB_PASSWORD: wordpress
+            WORDPRESS_DB_NAME: wordpress
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.wp.rule=Host(`wp1.localhost`)"
+            - "traefik.http.routers.wp.entrypoints=web"
+
+
+networks:
+    proxy:
+        external: true
+    database:
+        external: true

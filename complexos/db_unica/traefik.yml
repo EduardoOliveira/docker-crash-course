@@ -1,0 +1,43 @@
+#https://traefik.io/
+services:
+    traefik:
+        container_name: traefik
+        image: traefik
+        command:
+            - --providers.docker=true
+            - --providers.docker.exposedByDefault=false
+
+            - --entryPoints.web.address=:80
+            - --entryPoints.websecure.address=:443
+
+            #- --certificatesresolvers.le.acme.tlschallenge=true
+            #- --certificatesresolvers.le.acme.email=coisas@o_teu_dominio.com
+            #- --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
+            #- --certificatesResolvers.le.acme.httpChallenge.entryPoint=web
+
+            #- --metrics=true
+            - --api.dashboard=true
+            - --api.insecure=true
+        networks:
+            - proxy
+        ports:
+            - 80:80
+            - 443:443
+            - 8081:8080
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            #- ./traefik:/letsencrypt
+
+            #labels:
+            #- "traefik.enable=true"
+            #- "traefik.http.routers.http-catchall.rule=hostregexp(`{host:[a-z-.]+}`)"
+            #- "traefik.http.routers.http-catchall.entrypoints=web"
+            #- "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+            #- "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+  
+networks:
+    proxy:
+        external: true
+
+    # rede comum docker network create proxy

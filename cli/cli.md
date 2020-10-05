@@ -61,3 +61,12 @@ docker run -it --rm -e "THAT=THIS" ubuntu env
 docker run -it --rm -l "THAT=THIS" ubuntu env
 ```
 
+
+## Fazer push das imagens para o docker hub
+
+```bash
+docker login --username=username --email=user@domain.com
+docker tag imagem_local username/minha_app:latest #docker tag <imagem>  <repositorio>/<imagem>:<tag>
+docker push username/minha_app
+```
+

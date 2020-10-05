@@ -1,0 +1,43 @@
+stages:
+    - build
+    - push
+    - deploy
+  
+  build:
+    image: node:lts
+    stage: build
+    #only:
+    #  - develop
+    script:
+      - "npm install"
+      - "export VUE_APP_BACKEND=api.app.com"
+      - "export VUE_APP_PROTO=https"
+      - cp ops/vue.config_pre.js vue.config.js
+      - "npm run build"
+    tags:
+      - worker-filter
+  
+  push:
+    image: opsbuild:push-img-dind
+    stage: push
+    #only:
+    #  - develop
+    script:
+      - build_and_push.sh ops/Dockerfile app-ui latest
+    tags:
+      - worker-filter
+  
+  deploy:
+    image: opsbuild:push-img-dind
+    stage: deploy
+    #only:
+    #  - develop
+    script:
+      - docker-compose -f ops/docker-compose_pre.yml up -d
+    tags:
+      - worker-filter
+  
+  cache:
+    paths:
+    - dist
+  

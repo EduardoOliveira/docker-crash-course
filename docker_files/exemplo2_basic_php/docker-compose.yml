@@ -1,0 +1,8 @@
+services:
+    front_end:
+        build: .
+        container_name: php_app
+        ports: 
+            - 8080:80
+        environment: 
+            WEB_DOCUMENT_INDEX: potato.php

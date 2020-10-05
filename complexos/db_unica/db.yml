@@ -1,0 +1,20 @@
+services:
+    db:
+        image: mysql:5.7
+        #volumes:
+            #- ./wp:/var/lib/mysql
+        restart: always
+        networks:
+            - database
+        environment:
+            MYSQL_ROOT_PASSWORD: somewordpress
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: wordpress
+
+
+networks:
+    database:
+        external: true
+
+# rede comum docker network create database
