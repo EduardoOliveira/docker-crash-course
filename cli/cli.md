@@ -46,6 +46,13 @@ docker run -it --rm ubuntu bash
 
 `--rm` elimina o container assim que o processo terminar
 
+
+## Entrar na bash do container 
+
+``` bash
+docker exec -it um_nginx bash 
+```
+
 ## Variaveis de ambiente
 
 ```bash
