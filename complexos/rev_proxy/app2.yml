@@ -33,6 +33,13 @@ services:
             - "traefik.http.middlewares.wp.stripprefix.prefixes=/"
             - "traefik.http.routers.wp.middlewares=wp@docker"
             - "traefik.http.routers.wp.entrypoints=web"
+            
+            #- "traefik.http.routers.wp.entrypoints=websecure"
+
+            #- "traefik.http.routers.wp.rule=Host(`wp.dominio.pt`)"
+
+            #- "traefik.http.routers.wp.tls=true"
+            #- "traefik.http.routers.wp.tls.certresolver=le"
 
 
 networks:
