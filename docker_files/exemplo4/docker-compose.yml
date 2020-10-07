@@ -1,0 +1,26 @@
+services:
+    front_end:
+        build: .
+        image: my_wp
+        ports: 
+            - 8081:80
+        environment: 
+            WEB_DOCUMENT_ROOT: /app/wordpress
+            DB_NAME: wordpress
+            DB_USER: wordpress
+            DB_PASSWORD: wordpress
+            DB_HOST: db:3306
+        volumes:
+            #- ./wp-config.php:/app/wordpress/wp-config.php
+            - ./wp-content:/app/wordpress/wp-content
+
+    db:
+        image: mysql:5.7
+        volumes:
+            - ./wp:/var/lib/mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: somewordpress
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: wordpress

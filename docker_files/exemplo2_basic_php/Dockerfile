@@ -5,4 +5,3 @@ WORKDIR /app
 
 COPY index.php potato.php
 
-RUN ls -la
