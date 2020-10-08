@@ -10,6 +10,12 @@ docker run --name um_nginx -d -p 8080:80 -v `pwd`/assets:/usr/share/nginx/html:r
 
 `-v` monta a pasta assets dentro da doc root do nginx como read only
 
+## Listar conainers criados
+
+```bash 
+docker ps -a
+```
+
 ## Inspecionar container
 
 Devolve a coniguração actual do container
@@ -76,4 +82,14 @@ docker login --username=username --email=user@domain.com
 docker tag imagem_local username/minha_app:latest #docker tag <imagem>  <repositorio>/<imagem>:<tag>
 docker push username/minha_app
 ```
+
+## Rotinas de cleanup
+
+Ao utilizar imagens elas vão ficando guardadas em cache localmente pelo que convem ir limpando o espaço usado
+
+```bash
+docker image prune -a
+docker volume prune 
+```
+
 
